@@ -9,7 +9,7 @@ const BlogItem = ({blog ,handleAddLikes, handleRemoveLikes, loggedUser}) => {
   console.log("loggedUser: ",loggedUser)
   //console.log("blogUser: ",blog.users.username)
   
-  if (loggedUser  === blog.users.username)
+  if (loggedUser._id  === blog.id)
     visible = { display: '' }  
   else
     visible = { display: 'none' }
@@ -17,7 +17,7 @@ const BlogItem = ({blog ,handleAddLikes, handleRemoveLikes, loggedUser}) => {
   <div>
       <a href={blog.url}> {blog.url}</a><br/>
       {blog.likes} likes <button name = {blog.id} onClick={handleAddLikes}>likes</button> <br/>
-      added by {blog.users.username}<br/>
+      added by {loggedUser.name}<br/>
       <div style={visible}>
         <button name = {blog.id} onClick={handleRemoveLikes}>Remove</button>
       </div>

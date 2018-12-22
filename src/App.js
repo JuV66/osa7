@@ -34,7 +34,10 @@ class App extends React.Component {
     const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      this.setState({user})
+      console.log('componentDidMoun/user: ', user)
+      console.log('componentDidMoun/user.user: ', user.user)
+      const userWithOutToken = user.user
+      this.setState({userWithOutToken})
       blogService.setToken(user.token)
     }
   } 
@@ -206,7 +209,7 @@ class App extends React.Component {
         username: this.state.username,
         password: this.state.password
       })
-      
+      console.log('login/user: ', user)
       window.localStorage.setItem('loggedNoteappUser', JSON.stringify(user))
       blogService.setToken(user.token)
       this.setState({ username: '', password: '', user})
@@ -236,7 +239,9 @@ class App extends React.Component {
       marginBottom: 5
     }
 
-    const loginForm = () => (
+    const loginForm = () => {
+
+      return(
       <Togglable buttonLabel="login">
         <LoginForm
           visible={this.state.visible}
@@ -246,7 +251,7 @@ class App extends React.Component {
           handleSubmit={this.login}
         />
       </Togglable>
-    )
+    )}
 
     const blogForm = () => (
       <Togglable buttonLabel="new Blog" ref={component => this.blogForm = component}>
@@ -264,8 +269,8 @@ class App extends React.Component {
     const showBlog = (blog) => 
     {
       console.log("showBlog")
-      console.log(blog)
-      console.log('LoggedUser: ',this.state.user)
+      console.log('blog :', blog)
+      console.log('T.S: ',this.state)
 
       return (
   
@@ -275,7 +280,7 @@ class App extends React.Component {
           blog = {blog}
           //user = {blog.users.name}
           likes = {blog.likes}
-          loggedUser = {this.state.user.username}
+          loggedUser = {this.state.user.user}
           handleAddLikes ={this.handleAddLikes}
           handleRemoveLikes = {this.handleRemoveLikes}
         />
